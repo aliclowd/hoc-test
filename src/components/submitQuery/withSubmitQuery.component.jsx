@@ -18,7 +18,7 @@ export default function withSubmitQuery(WrappedComponent) {
 
         submitQuery = (url, param, query) => {
             console.log(query);
-            axios.get(`${url}?${param}=` + query).then(data => {
+            axios.get(`${url}?$${param}=` + query).then(data => {
                 if (data) {
                     this.setState({ data: data })
                 }
