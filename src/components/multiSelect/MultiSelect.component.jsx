@@ -1,29 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MultiSelect.styles.css';
 import Multiselect from 'multiselect-dropdown-react';
 
 const data = [{
-    name: 'one',
+    name: 'ناحیه : ستارخان',
     value: 'ستارخان'
 },
 {
-    name: 'two',
+    name: 'شهر : شیراز',
     value: 'شیراز'
 }];
 
 const MultiSelectBox = (props) => {
-    console.log(props)
+    const [arr, setArr] = useState([]);
     const result = (params) => {
-        // console.log(params.length)
-        if (params.length === 2) {
-            console.log(params);
-
-            props.onSubmitQuery('https://api.zhoon.ir/odata/CityFilterDto', 'filter', `CiyName eq ${params[0]} AND Areaname eq ${params[1]}`);
-        }
+        setArr(params);
     }
+    const getResult = (params) => {
+        props.onSubmitQuery('https://api.zhoon.ir/odata/CityFilterDto', 'filter', `CiyName eq '${params[0]}' and Areaname eq '${params[1]}'`);
+    };
     return (
         <>
             <Multiselect options={data} onSelectOptions={result} />
+            <button className='select-btn' onClick={() => getResult(arr)}>Get</button>
         </>
     )
 };
